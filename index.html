@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport"
+        content="width=device-width,
+         initial-scale=1.0">
+         <style>
+            body {
+                 margin: 0;
+                 background-color: #ffffff;
+                 font-family: Arial, sans-serif;
+                 overflow-x: hidden;
+            } 
+            
+               .navbar {
+                  display: flex;
+                  justify-content: space-between;
+                  align-items: center;
+                  padding: 1.5rem 2rem; 
+               } 
+                 
+                 .logo-container {
+                      display: flex;
+                      align-items: center;
+                      gap: 12px;
+                 }
+
+                 .logo {
+                    width: 32px;
+                    height: 32px;
+                    object-fit: contain;
+                 }   
+
+                  .site-name {
+                      font-size: 24px;
+                      font-weight: 600;
+                      color: #333;
+                  }
+              
+               .hamburger-menu {
+                  display: none;
+                  position: fixed;
+                  top: 0;
+                  right: 0;
+                  width: 250px;
+                  height: 100%;
+                  background-color: #fff;
+                  box-shadow: -2px 0 5px rgba(0,0, 0, 0.2);
+                  z-index: 1000;
+                  transform: translateX(100%);
+                  transition: transform 0.3s ease-in-out;
+               }    
+                        
+
+                  .hamburger-menu.active {
+                      transform: translateX(0);
+                  }
+                
+                  .menu-toggle {
+                      position: fixed;
+                      top: 12px;
+                      right: 20px;
+                      z-index: 1001;
+                      cursor: pointer;
+                      padding: 10px;
+                      background: white;
+                      border-radius: 5px;
+                  }
+                   
+                  .menu-toggle span {
+                      display: block;
+                      width: 25px;
+                      height: 3px;
+                      background-color: #333;
+                      margin: 5px 0;
+                      transition: 0.3s;
+                  }
+
+                   .menu-toggle.active span:nth-child(1){
+                        transform: rotate(-45deg) translate(-5px, 6px);
+                   }
+                  
+                    .menu-toggle.active span:nth-child(2) {
+                             opacity: 0;
+                    }  
+
+                    .menu-toggle.active span:nth-child(3) {
+                            transform: rotate(45deg) translate(-5px,-6px);
+                    } 
+
+                    .menu-items {
+                          padding: 80px 20px 20px;
+                          list-style: none;
+                          margin: 0;
+                    }
+
+                      .menu-items li {
+                          margin: 15px 0;
+                      }
+                      
+                       .menu-items a {
+                            color: #333;
+                            text-decoration: none;
+                            font-size: 18px;
+                            transition: color 0.3s;
+                            display: block;
+                            padding: 10px 0;
+                            cursor: pointer;
+                       } 
+                            .menu-items a:hover {
+                                color: #fff;
+                            }
+                         
+                            .overlay {
+                                display: none;
+                                position: fixed;
+                                top: 0;
+                                left: 0;
+                                width: 100%;
+                                height: 100%;
+                                background-color: rgba(0,0, 0, 0.5);
+                                z-index: 999;
+                            }   
+                          
+                            .overlay.active {
+                                display: none;
+                            }
+
+                                .page {
+                                    display: block;
+                                    padding: 80px 20px 20px;
+                                    min-height: 100vh;
+                                }
+
+                                 .page.active {
+                                      display: block;
+                                 }
+
+                                 #home {
+                                    background-color: #f8f9fa;
+                                 }
+                                   #templates {
+                                         background-color: #f8f9fa;
+                                   }
+
+                                  #about {
+                                       background-color: #f8f9fa;
+                                  }
+
+                                   #contact {
+                                         background-color: #f8f9fa;
+                                   }
+                           
+                                   .page h1{
+                                         margin-top: 0;
+                                         color: #333;
+                                   } 
+
+                                   .page p {
+                                         line-height: 1.6;
+                                         color: #666;
+                                         max-width: 800px;
+                                   }
+
+                                 @media  screen and (min-width: 768px ) {
+                                     .hamburger-menu{
+                                        width: 300px;
+                                     }
+                                     
+                                  .menu-items {
+                                      padding-top: 100px;
+                                  }
+
+                              .page {
+                                    padding: 100px 40px 40px ;
+                              }
+                          }
+                       
+                        .main-content {
+                             max-width: 1200px;
+                             margin: 4rem auto;
+                             padding: 0 2rem;
+                             text-align: center;
+                        }
+
+                      .hero {
+                          padding: 8rem 2rem 4rem;
+                          text-align: center;
+                          background-color:white;
+                          color: white;
+                      }
+                          
+                      .hero-content {
+                         max-width: 800px;
+                         margin: 0 auto
+                    } 
+
+                       .hero h1{
+                          font-size: 2.5rem;
+                          margin-bottom: 1rem;
+                       } 
+                           .hero p{
+                           font-size: 1.2rem;
+                           opacity: 0.9;
+                       }     
+                        
+                       .buttons {
+                          display: flex;
+                          gap: 1rem;
+                          justify-content: center;
+                          margin-bottom: 2rem;
+                       }
+
+                        .btn {
+                             padding: 0.75rem 1.5rem;
+                             border-radius: 6px;
+                             font-weight: 500;
+                             cursor: pointer;
+                             text-decoration: none;
+                             transition: background-color 0.2s;
+                        }
+                           .btn-primary {
+                              background-color: #1a1a1a;
+                              color: white;
+                              border: none;
+                           }   
+                              .btn-secondary {
+                                 background-color:white;
+                                 color: #1a1a1a;
+                                 border: 1px solid #ddd;
+                              }
+                           
+                               .trusted-by {
+                                  display: flex;
+                                  align-items: center;
+                                  justify-content: center;
+                                  gap: 0.5rem;
+                                  color: #666;
+                                  font-size: 0.9rem;
+                               }
+                             
+                                .dots {
+                                     display: flex;
+                                     gap: 0.25rem;
+                                }    
+                                  .dot {
+                                      width: 8px;
+                                      height: 8px;
+                                      background-color: #1a1a1a;
+                                      border-radius: 50%;
+                                  }
+
+                          
+                         .section-title {
+                               text-align: center;
+                               margin-bottom: 3rem; 
+                         }
+                    
+                         .section-title h2{
+                               font-size: 2rem;
+                               color: #333;
+                               margin-bottom: 1rem;
+                         }
+                            .section-title p {
+                               color: #666;
+                               max-width: 600px;
+                               margin: 0 auto;
+                            }
+                        
+                           .grid-container {
+                                display: grid;
+                                grid-template-columns: repeat(2,1fr);
+                                gap: 24px; 
+                                padding: 20px;
+                           }  
+
+                            .template-card {
+                               background: white;
+                               border-radius: 12px;
+                               overflow: hidden;
+                               box-shadow: 0 2px 10px rgba(0,0, 0, 0.1);
+                               transition: transform 0.2s ease;
+                            }  
+                            
+                             .template-card:hover {
+                               transform: translateY(-5px);
+                             }
+                               .image-container {
+                                    width: 100%;
+                                    height: 350px; 
+                                    overflow: hidden;
+                                    position: relative;
+
+                               }
+                            
+                              .image-container img {
+                                    max-width: 100%;
+                                    max-height: 100%;
+                                    display: block;
+                                    object-fit: contain ;
+                              }
+
+                              .card-content {
+                                    padding: 1.5rem;
+                                    display: flex;
+                                    flex-direction: column;
+                                    gap: #333;
+
+                              }
+                              
+                               .card-title {
+                                    font-size: 1.25rem;
+                                    font-weight: 600;
+                                    color: #333;
+                                    align-self: flex-start;
+                               }
+
+                               .card-description {
+                                     color: #666;
+                                     font-size: 1.15rem;
+                                     align-self: flex-start;
+                                }
+                              
+                                .cta-button {
+                                      background-color: #000;
+                                      color:white;
+                                      border: none;
+                                      padding: 8px 20px ;
+                                      border-radius: 4px;
+                                      font-size: 14px;
+                                      cursor: pointer;
+                                      transition: background-color 0.2s ease;
+                                      align-self: flex-start;
+                                }
+                                    .cta-button:hover {
+                                         background-color: #333;
+                                    }
+
+                                     @media (max-width:768px){
+                                        .nav-links{
+                                           display: none;
+                                           }
+
+                                           .hero {
+                                               padding: 6rem 1rem 3rem ;
+                                           } 
+                                               .hero h1{
+                                                  font-size: 2rem;
+                                               } 
+
+                                               .main-content {
+                                                   padding: 2rem 1rem ;
+                                               }
+                                                 .section-title h2{
+                                                      font-size: 1.75rem;
+                                                 } 
+                                     }
+                                            
+                                       .newsletter-section {
+                                           max-width: 1000px;
+                                           margin: 60px auto;
+                                           padding: 0 20px ;
+                                       }
+
+                                         .newsletter-container {
+                                                background-color: #f8f9fa;
+                                                border-radius: 8px;
+                                                padding: 40px;
+                                                 text-align: center;
+                                         }
+                                        
+
+                                         .newsletter-title {
+                                               font-size: 24px;
+                                               color: #333;
+                                               margin-bottom: 12px;
+                                               font-weight: 500;
+                                         } 
+
+                                          .newsletter-description {
+                                              color: #666;
+                                              margin-bottom: 24px;
+                                              font-size: 16px;
+                                          }  
+
+                                            .newsletter-form {
+                                                 display: flex;
+                                                 gap: 12px;
+                                                 max-width: 600px;
+                                                 margin: 0 auto;
+                                            }
+
+                                                 .newsletter-input {
+                                                        flex: 1;
+                                                         padding: 12px 16px ;
+                                                          border: 1px solid #ddd;
+                                                           border-radius: 6px;
+                                                            font-size: 16px;
+                                                            outline: none;
+                                                 }
+                                          
+                                                 .newsletter-button {
+                                                        background-color: #333;
+                                                        color: white;
+                                                        border: none;
+                                                        padding: 12px 24px;
+                                                         border-radius: 6px;
+                                                         font-size: 16px;
+                                                         cursor: pointer;
+                                                         transition: background-color 0.2s ;
+                                                 }
+
+                                                .newsletter-button:hover {
+                                                       background-color: #222;
+                                                }
+
+                                                 .message {
+                                                     margin-top: 16px;
+                                                      padding: 10px;
+                                                      border-radius: 4px;
+                                                      display: none;
+                                                 }
+                                                  
+                                                 .success {
+                                                     background-color: #d4edda;
+                                                     color: #155724;
+                                                 }
+                                                  .error {
+                                                     background-color: #f8d7da;
+                                                     color: #721c24;
+                                                  }
+
+                                                  @media (max-width:600px) {
+                                                       .newsletter-form {
+                                                          flex-direction: column;
+                                                       } 
+                                                 
+                                                       .newsletter-input,
+                                                       .newsletter-button {
+                                                         width:100%
+                                                       }
+                                                    }
+                                          
+                                                    .footer-container {
+                                                          background-color: #f5f5f5;
+                                                          padding: 40px 20px;
+                                                          font-family: sans-serif;
+                                                    }  
+
+                                                    .footer-content {
+                                                          max-width: 1200px;
+                                                           margin: 0 auto;
+                                                           display: grid;
+                                                           grid-template-columns: repeat(3,1fr);
+                                                           gap: 40px;
+                                                    }
+    
+                                                    .footer-column h3{
+                                                          font-size: 18px;
+                                                          margin-bottom: 20px;
+                                                          color: #333;
+                                                    }
+                                                        .footer-column ul {
+                                                               list-style: none;
+                                                               padding: 0;
+                                                               margin: 0;
+                                                        }
+
+                                                          .footer-column ul li {
+                                                               margin-bottom: 10px;
+                                                          }
+
+                                                             .footer-column ul li a {
+                                                                   color: #333;
+                                                             }
+                                                           
+                                                            .footer-column ul li a:hover {
+                                                                   color: #333;
+                                                            } 
+                                                            
+                                                            .copyright {
+                                                                 text-align: center;
+                                                                 margin-top: 30px;
+                                                                 padding-top: 20px;
+                                                                 border-top: 1px solid#ddd;
+                                                                 color: #888;
+                                                            }
+
+
+                                                   
+         </style>
+    </head>
+      <body>
+        <nav class="navbar">
+          <div class="logo-container">
+            <img src="web-image/logo (3).jpg" alt="Productive Club logo" class="logo"> 
+            <h1 class="site-name">Productive Club</h1>
+          </div> 
+        </nav>     
+        
+                <main class="main-content">
+                <h1>Get Oraganized and More Productive</h1>
+                <p>Notion templates to help get things Done </p>
+                <div class="buttons">
+                    <a href="#" class="btn btn-primary">View Templates </a>
+                    <a href="#" class="btn btn-secondary">Get Templates Bundle</a>
+                </div>
+                    <div class="trusted-by">
+                        <div class="dots">
+                            <span class="dot"></span>
+                            <span class="dot"></span>
+                            <span  class="dot"></span>
+                        </div>
+                        Trusted by over 1,000+ Productive folks 
+                    </div>
+                </main>
+        <main class="main-content" >
+            <div class="section-title">
+                <h2> Most Popular Notion Tempaltes </h2>
+                <p>Choose from our carefully crafted templates </p>
+            </div> 
+
+              <div class="grid-container">
+                <div class="template-card">
+                    <div class="image-container">
+                    <img src="web-image/focus mode.jpg" alt="Focus Mode" >
+                </div> 
+                 <div class="card-content">
+                    <h3 class="card-title">Focus Mode</h3>
+                    <p class="card-description" >
+                         Focus mode help track your time and work distraction free 
+                    </p>
+                    <button class="cta-button" >Get it for free</button>
+                 </div>
+              </div>
+               
+              <div class="template-card" >
+                <div class="image-container" >
+                    <img src="web-image/second brain.jpg" alt="second brain">
+                </div>
+                <div class="card-content" >
+                    <h3 class="card-title">Second Brain</h3>
+                    <p class="card-description" >
+                        Organized your Entire life in one place 
+                    </p> 
+                    <button class="cta-button" >Learn More</button>
+                </div>
+              </div>
+   
+           <div class="template-card">
+               <div class="image-container" >
+                <img src="web-image/crm system.jpg"  alt="CRM system" >
+               </div>
+               <div class="card-content" >
+                <h3 class="card-title" >CRM system</h3>
+                <p class="card-description" > CRM is ultimate system to help you manage all your Clients </p>
+                <button class="cta-button" >Get it for free</button>
+               </div>
+           </div>
+      
+           <div class="template-card">
+             <div class="image-container">
+                <img src="web-image/expenses tracker.jpg" alt="Expences Tracker" >
+             </div> 
+             <div class="card-content" > 
+                <h3 class="card-title" >Expences Tracker</h3>
+                <p class="card-description" >Tracker All your Expences in one place </p>
+                <button class="cta-button">Get it for free</button>
+             </div>
+           </div> 
+
+           <div class="template-card">
+            <div class="image-container">
+                <img src="web-image/ultimate notes.jpg"  alt="ultimate Notes">
+            </div>
+            <div class="card-content">
+                <h3 class="card-title">ultimate Notes </h3>
+                <p class="card-description">ultimate note is designed to help you take notes,qapture ideas quickly</p>
+                <button class="cta-button">Get it for free</button>
+            </div>
+           </div>
+
+    <div class="template-card">
+        <div class="image-container">
+            <img src="web-image/social media planner.jpg" alt="Social media planner">
+        </div>
+        <div class="card-content">    
+        <h3 class="card-title" >Social Media planner</h3>
+        <p class="card-description" >Plan your all content in one place </p>
+        <button class="cta-button">Get it for free </button>
+    </div>      
+ </div>
+ </main>
+               
+         
+        <div class="newsletter-section"  >
+            <div class="newsletter-container" >
+                <h2 class=" newsletter-title">Join our Newsletter</h2>
+                <p class="newsletter-description">Get notion templates and tips directly in your inbox </p>
+                <form id="newsletterForm"  class="newsletter-form">
+                    <input type="email"
+                       class="newsletter-input"
+                         id="email"
+                         placeholder="Enter your Email" 
+                         required >
+                     <button type="submit" class="newsletter-button">
+                        Subscribe 
+                     </button> 
+                </form> 
+                <div id="message" class="message"></div>
+            </div>
+        </div>
+       
+        <div class="menu-toggle"
+        onclick="toggleMenu()">
+        <span></span>
+        <span></span>
+        <span></span>
+     </div> 
+    
+       <div class="overlay"
+       onclick="toggleMenu()"></div>
+
+       <div class="hamburger-menu">
+          <ul class="menu-items">
+               <li><a onclick="navigateToPage('home')" >Home</a></li>
+
+               <li><a onclick="navigateToPage('templates')">All Templates</a></li>
+
+               <li><a onclick="navigateToPage('about')">About</a></li> 
+
+               <li><a onclick="navigateToPage('contact')">Contact</a></li>
+          </ul> 
+       </div>
+           
+
+
+      <footer class="footer-container" >
+         <div class="footer-content">
+            <div class="footer-column">
+                <h3>Product</h3>
+                <ul> 
+                    <li><a href="#">Templates</a></li>
+                    <li><a href="#">Pricing </a></li>
+                    <li><a href="#">Features</a></li>
+                </ul>
+            </div> 
+
+            <div class="footer-column">
+                <h3>Resorces </h3>
+                <ul>
+                    <li><a href="#">Blog</a></li>
+                     <li><a href="#">Guide </a></li>
+                     <li> <a href="#">Help centre</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-column">
+                <h3>Comapny</h3>
+                <ul>
+                    <li><a href="#">About us </a></li>
+                    <li><a href="#">Contact</a></li>
+                    <li><a href="#">Affiliates</a></li>
+                </ul>
+            </div>
+         </div>
+         <div class="copyright" >
+            @2024 Productive club. All rights reserved
+         </div>
+      </footer>
+
+ 
+      <script>
+         let isMenuOpen=false;
+
+         function toggleMenu() {
+               const menu= document.querySelector('.hamburger-menu');
+               const menuToggle= document.querySelector('.menu-toggle')
+               const overlay = document.querySelector('.overlay');
+        
+                 console.log('Toggle menu clicked');
+
+                 isMenuOpen=!isMenuOpen;
+                 console.log('MENU OPEN:' , isMenuOpen);
+               
+               if (isMenuOpen) {
+                 menu.style.display= 'block' ;
+                 setTimeout(() => {
+                      menu.classList.add('active');
+                 },10 );
+                    
+                   menu.classList.add('active');
+                   menuToggle.classList.add('active');
+                   overlay.classList.add('active');
+                   document.body.style.overflow='hidden';
+               }  
+                else {
+                     menu.classList.remove('active');
+                     menuToggle.classList.remove('active');
+                     overlay.classList.remove('active') ;
+                     document.body.style.overflow='auto' ; 
+                     setTimeout(() => {
+                        menu.style.display ='none' ;
+                     }, 300);
+                }
+         }   
+
+          function navigateToPage(pageid) {
+               
+            document.querySelectorAll('.page').forEach( page=> {
+                 page.style.display='none';
+            });
+                
+            const page= document.getElementById(pageid);
+             if (page) {
+                  page.style.display='block';
+                  currentPage=pageid;
+             window.history.pushState({page:pageid},pageid,{pageid});
+          }
+             toggleMenu();
+             window.scrollTo(0,0)
+        } 
+
+          window.onpopstate=function(event){
+                if(event.state && even.state.page) {
+                    navigateToPage(event.state.page);
+                }
+          };
+
+       document.addEventListener('DOMContentLoaded',()=>{
+               const menuToggle=document.querySelector('.menu-toggle');
+               const overlay =document.querySelector('.overlay');
+
+               menuToggle.addEventListener('click, toggleMenu');
+               overlay.addEventListener('click' , toggleMenu);
+
+               console.log('event listeners added');
+                 const hash= 
+                 window.location.hash.slice(1)||'home';
+                 navigateToPage(hash); 
+       }) ;
+
+          const CONVERTKIT_API_KEY='7Y2DJQS6Hn39YZ0o03yL6w';
+
+          const FORM_ID='6760602' ;
+
+          Document.getElementById('newsletterForm').addEventListener('submit',async function(e){
+                 e.preventDefault();
+
+                 const email=document.getElementById('email').value;
+                 const messageDiv= Document.getElementById('message');
+                 const button =Document.querySelector('.newletter-button');
+
+                 button.disabled='true';
+                 button.textContent='subsribing..';
+
+                 try {
+                    const response=await
+                    fetch('https://api.convertkit.com/v3/forms/${FORM_ID}/subscribe',{
+                          method:'POST',
+                          headers:{
+                             'content-Type':'application/json',
+                          }, 
+
+                            body :json.stringify ({
+                                  api_key: 
+                                  CONVERTKIT_API_KEY,
+                                  email:email 
+                            } )
+                    });
+                        const data=await response.json();
+                         
+                        messageDiv.style.display='block'; 
+
+                        if (response.ok) {
+                            messageDiv.className='message success';
+                            messageDiv.textContent='Thank you for subscribing';
+                             this.reset();
+                        }   
+                            else {
+                                  messageDiv.className='message error' ;
+                                  messageDiv.textContent=data.message || 'something went wrong.please try again.';
+                            } 
+                        }  catch (error) {
+                                 messageDiv.style.display ='block' ;
+                                 messageDiv.className='message error' ;
+                                 messageDiv.textContent='an error occured.please try again later.';
+                        }  
+
+                           button.disabled=false;
+                            button.textContent='subscribe' ;
+                    });
+
+
+
+      </script>
+      </body>
+</html>  
